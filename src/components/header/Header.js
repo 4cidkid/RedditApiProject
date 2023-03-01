@@ -1,6 +1,6 @@
 import React from 'react'
-
-
+import { Search } from 'react-feather';
+import './Header.css'
 export function Header(){
     return(
         <header>
@@ -10,7 +10,7 @@ export function Header(){
             </div>
             <form>
                 <input type="text" name='search' id='search' placeholder="Search" />
-                <button type='submit'>Search</button>
+                <button id='searchIcon' type='submit'><Search/></button>
             </form>
         </header>
     )
