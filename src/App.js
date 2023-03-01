@@ -4,13 +4,16 @@ import { Counter } from "./features/counter/Counter";
 import "./App.css";
 import { Header } from "./components/header/Header";
 import { Categories } from "./components/categories/Categories";
+import { Posts } from "./components/posts/Posts";
 function App() {
   return (
     <>
       <Header />
       <div className="App">
         {/* <Counter /> */}
-        <div></div>
+        <div>
+          <Posts />
+        </div>
         <div>
           <Categories />
         </div>
