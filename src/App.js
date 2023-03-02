@@ -11,7 +11,7 @@ function App() {
       <Header />
       <div className="App">
         {/* <Counter /> */}
-        <div>
+        <div id="post-section">
           <Posts />
         </div>
         <div>
@@ -21,5 +21,4 @@ function App() {
     </>
   );
 }
-
 export default App;
