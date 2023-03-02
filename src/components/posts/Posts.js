@@ -9,7 +9,6 @@ export function Posts() {
   const dispatch = useDispatch();
   const posts = useSelector(selectPosts);
   const loading = useSelector(selectLoading);
-  console.log(posts)
   useEffect(() => {
     dispatch(asyncPosts());
   }, []);
