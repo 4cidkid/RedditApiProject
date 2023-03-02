@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectPosts } from "../../features/posts/PostsSlice";
-import { asyncPosts } from "../../features/posts/PostsSlice";
-import { selectLoading } from "../../features/posts/PostsSlice";
-import { ArrowUp, ArrowDown } from "react-feather";
+import {
+  selectLoading,
+  asyncPosts,
+  selectPosts,
+  selectComments,
+  asyncComments,
+} from "../../features/posts/PostsSlice";
+import { ArrowUp, ArrowDown, MessageSquare } from "react-feather";
 import "./posts.css";
+import { Comments } from "../comments/comments";
 export function Posts() {
   const dispatch = useDispatch();
   const posts = useSelector(selectPosts);
   const loading = useSelector(selectLoading);
+  const comments = useSelector(selectComments);
+  const [showComments, setShowComments] = useState(false);
+  const [indexShow, setIndexShow] = useState('');
+  function showTheComments(e) {
+    e.preventDefault();
+    setShowComments(true);
+    setIndexShow(e.currentTarget.attributes.id.value);
+    dispatch(asyncComments(e.currentTarget.attributes.id.value));
+  }
+  console.log(comments);
   useEffect(() => {
     dispatch(asyncPosts());
   }, []);
@@ -104,6 +119,13 @@ export function Posts() {
                   <span>{post.subRedditPrefix}</span>
                   <span>{post.author}</span>
                 </div>
+                <MessageSquare
+                  id={post.link}
+                  onClick={showTheComments}
+                ></MessageSquare>
+                {showComments && (
+                  <Comments comments={comments} indexShow={indexShow} currentIndex={post.link} setShowComments={setShowComments}></Comments>
+                )}
               </div>
             </div>
           );

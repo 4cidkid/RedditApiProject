@@ -79,3 +79,14 @@ body {
   align-items: center;
   position: relative;
 }
+.children-comments{
+  bottom: 0px;
+  text-align: left;
+  transition: all 2s;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+  overflow-y: scroll;
+  max-height: 100%;
+}

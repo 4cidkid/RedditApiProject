@@ -18,15 +18,30 @@ export const asyncPosts = createAsyncThunk(
             type: post.data.post_hint
           };
         });
+
         return initialState
     }
   );
+export const asyncComments = createAsyncThunk(
+    'posts/loadComments',
+    async (permalink = 'https://www.reddit.com/r/ProgrammerDadJokes/comments/11dasbt/i_run_a_coding_camp_for_kids_hacking_windows/') => {
+        let response = await fetch(`${permalink}.json`);
+        let data = await response.json();
+        data = data[1].data.children.map((children) => {
+            return {
+                comment: children.data.body,
+                author: children.data.author,
+            }
+        })
+        return data
+    })
 export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
         posts: [],
-        isLoading: false,
-        hasErrors: false,
+        comments: [],
+        isLoadingComments: false,
+        hasErrorsComments: false,
     },
     reducers:{
         // loadPost: (state, action) => {
@@ -44,10 +59,25 @@ export const postsSlice = createSlice({
         [asyncPosts.rejected]: (state) => {
             state.isLoading = false;
             state.hasErrors = true;
+        },
+        [asyncComments.pending]: (state) => {
+            state.isLoadingComments = true;
+            state.hasErrorsComments = false;
+        },
+        [asyncComments.fulfilled]: (state, action) => {
+            state.isLoadingComments = false;
+            state.hasErrorsComments = false;
+            state.comments = action.payload;
+        },
+        [asyncComments.rejected]: (state) => {
+            state.isLoadingComments = false;
+            state.hasErrorsComments = true;
         }
     }
 })
 export const { } = postsSlice.actions;
 export const selectPosts = (state) => state.posts.posts
+export const selectComments = (state) => state.posts.comments
 export const selectLoading = (state) => state.isLoading
+export const selectLoadingComments = (state) => state.isLoadingComments
 export default postsSlice.reducer;
