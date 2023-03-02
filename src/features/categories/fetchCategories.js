@@ -3,18 +3,19 @@ const categoriesToFetch = ['programming','learnprogramming','ProgrammerHumor','A
 export const asyncCategories = createAsyncThunk(
     'categories/loadCategories',
     async (arg) => {
-        let initialState = []
-        categoriesToFetch.forEach(async (category) => {
-            const response = fetch(`https://www.reddit.com/r/${category}/about.json`)
-            const data = await response.json();
-            initialState.push({
-                name: data.data.display_name,
-                title: data.data.title,
-                icon: data.data.icon_img,
-            });
-        })
-        return initialState
-    })
+      const categoriesData = await Promise.all(categoriesToFetch.map(async (category) => {
+        const response = await fetch(`https://www.reddit.com/r/${category}/about.json`);
+        const data = await response.json();
+        return {
+          name: data.data.display_name,
+          title: data.data.title,
+          icon: data.data.icon_img,
+        };
+      }));
+      console.log(categoriesData)
+      return categoriesData;
+    }
+  );
 export const categoriesSlice = createSlice({
     name: 'categories',
     initialState: {
@@ -33,7 +34,7 @@ export const categoriesSlice = createSlice({
         [asyncCategories.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.hasErrors = false;
-            state.posts = action.payload;
+            state.categories = action.payload;
         },
         [asyncCategories.rejected]: (state) => {
             state.isLoading = false;

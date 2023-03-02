@@ -9,12 +9,12 @@ function App() {
   return (
     <>
       <Header />
-      <div className="App">
+      <div className="App" style={{display:'flex'}}>
         {/* <Counter /> */}
         <div id="post-section">
           <Posts />
         </div>
-        <div>
+        <div className="categoriesdiv" style={{width:'30%',height:'fit-content',padding:40,backgroundColor:'white'}}>
           <Categories />
         </div>
       </div>
