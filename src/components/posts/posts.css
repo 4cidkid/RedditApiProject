@@ -17,7 +17,6 @@ body {
 #post-section .post {
   display: flex;
   flex-direction: column;
-  width: 70%;
   position: relative;
   align-items: center;
   background: white;
@@ -31,6 +30,7 @@ body {
   flex-direction: column;
   gap: 5rem;
   padding: 40px;
+  width: 70%;
 }
 .post .downUp {
   position: absolute;
