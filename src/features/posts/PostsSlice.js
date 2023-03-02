@@ -16,7 +16,6 @@ export const asyncPosts = createAsyncThunk(
             subRedditPrefix: post.data.subreddit_name_prefixed,
           };
         });
-        console.log(initialState)
         return initialState
     }
   );
@@ -48,4 +47,5 @@ export const postsSlice = createSlice({
 })
 export const { } = postsSlice.actions;
 export const selectPosts = (state) => state.posts.posts
+export const selectLoading = (state) => state.isLoading
 export default postsSlice.reducer;
