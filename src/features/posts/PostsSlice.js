@@ -2,8 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const asyncPosts = createAsyncThunk(
     'posts/loadPosts',
     async (category = 'ProgrammerHumor') => {
-        let response = await fetch(`https://www.reddit.com/r/${category}/new.json?limit=10`);
+        let response = await fetch(`https://www.reddit.com/r/${category}/new.json?limit=10&post_hint=image`);
         let data = await response.json();
+
         let initialState =  data.data.children.map((post) => {
           return {
             imgUrl: post.data.url,
@@ -14,6 +15,7 @@ export const asyncPosts = createAsyncThunk(
             downVotes: post.data.downs,
             subReddit: post.data.subreddit,
             subRedditPrefix: post.data.subreddit_name_prefixed,
+            type: post.data.post_hint
           };
         });
         return initialState
