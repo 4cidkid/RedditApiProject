@@ -1,6 +1,5 @@
-const categoriesToFetch = ['programming','learnprogramming','ProgrammerHumor','AskProgramming','programminghorror','programmingcirclejerk','programmingmemes','programmingjokes','ProgrammerDadJokes'];
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+const categoriesToFetch = ['programming','learnprogramming','ProgrammerHumor','AskProgramming','programminghorror','programmingcirclejerk','programmingmemes','programmingjokes','ProgrammerDadJokes'];
 export const asyncCategories = createAsyncThunk(
     'categories/loadCategories',
     async (arg) => {
